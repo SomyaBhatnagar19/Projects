@@ -3,8 +3,11 @@
 //importing files
 const express = require('express');
 const mysql = require('mysql2'); // Import the mysql2 library
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors());
 
 // Create a MySQL connection
 const connection = mysql.createConnection({
@@ -25,7 +28,7 @@ connection.connect((err) => {
 
 // Define a route to fetch data from the 'users' table
 app.get('/', (req, res) => {
-  const query = 'SELECT * FROM users'; // Replace 'users' with your actual table name
+  const query = 'SELECT * FROM users'; 
 
   // Execute the query
   connection.query(query, (err, results) => {
