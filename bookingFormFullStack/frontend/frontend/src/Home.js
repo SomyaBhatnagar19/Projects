@@ -47,9 +47,10 @@ function Home() {
                 <td>{item.phone}</td>
                 <td>{item.email}</td>
                 <td>
-                  <Button variant="primary" className="btn-sm mr-2">
+                  
+                  <Link to={`/UpdateForm/${item.id}`} className="btn btn-primary btn-sm mr-2">
                     Update
-                  </Button>
+                  </Link>
                   <Button variant="danger" className="btn-sm">
                     Delete
                   </Button>

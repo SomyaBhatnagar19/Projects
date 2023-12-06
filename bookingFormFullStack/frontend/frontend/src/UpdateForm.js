@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function BookingForm() {
+function UpdateForm() {
 
     const [username, setUsername] = useState('');
     const [phone, setPhone] = useState('');
@@ -11,12 +11,15 @@ function BookingForm() {
 
     const navigate = useNavigate();
 
+
+    const {id} = useParams();
+
     const handleSubmitForm = (e) => {
       e.preventDefault();
       axios
-      .post("http://localhost:3000/BookingForm", { username, phone, email })
+      .put("http://localhost:3000/UpdateForm/"+id, { username, phone, email })
       .then(res => {
-        alert('Appointment added successfuly.')
+        alert('Updated the data successfully.')
         navigate('/');
       })
       .catch(err => console.log(err))
@@ -26,7 +29,7 @@ function BookingForm() {
 
     <div className="bg-dark vh-100 d-flex align-items-center justify-content-center">
       <Container className="bg-light mt-5 mb-5 border rounded p-4">
-        <h5 className="text-center mb-4">Booking Appointment Form</h5>
+        <h5 className="text-center mb-4">Update Form</h5>
         <hr />
         <Form onSubmit={handleSubmitForm}>
           <Row className="mb-3">
@@ -67,7 +70,7 @@ function BookingForm() {
           <Row className="justify-content-end">
             <Col xs={3}>
               <Button variant="success" type="submit" block>
-                Add Appointment
+                Update
               </Button>
             </Col>
           </Row>
@@ -77,4 +80,4 @@ function BookingForm() {
   );
 }
 
-export default BookingForm;
+export default UpdateForm;

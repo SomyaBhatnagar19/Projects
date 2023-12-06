@@ -63,6 +63,26 @@ app.post('/BookingForm', (req, res) => {
   });
 });
 
+app.put('/UpdateForm/:id', (req, res) => {
+  const query = "UPDATE users SET username=?, phone=?, email=? WHERE id=?";
+  const id = req.params.id;
+  const values = [
+    req.body.username,
+    req.body.phone,
+    req.body.email,
+  ];
+
+  connection.query(query, [...values, id], (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json("UpdateForm");
+    }
+  });
+});
+
+
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
