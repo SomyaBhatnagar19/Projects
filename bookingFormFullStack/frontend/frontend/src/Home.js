@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Container, Col, Row, Table } from "react-bootstrap";
 import BookingForm from "./BookingForm";
 
 function Home() {
   const [showBookingForm, setShowBookingForm] = useState(false);
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.get('/http://localhost:3000/')
+    .then(res => console.log('Response: ', res))
+    .catch(err => console.log(err));
+  })
 
   const openBookingForm = () => {
     setShowBookingForm(true);
