@@ -82,6 +82,20 @@ app.put('/UpdateForm/:id', (req, res) => {
   });
 });
 
+app.delete('/delete/:id', (req, res) => {
+  const query = "DELETE FROM users WHERE ID = ?";
+  const id = req.params.id;
+  
+  connection.query(query, [id], (err, results) => {
+    if (err) {
+      console.error(err);
+    } 
+
+      return res.json("deleted");
+    
+  });
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;

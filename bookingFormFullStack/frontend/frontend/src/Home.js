@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Table } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
 
@@ -16,6 +17,17 @@ function Home() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const navigate = useNavigate();
+
+  const handleDeleteFunctionality = (id) => {
+    axios.delete("http://localhost:3000/delete/"+id)
+    .then(res => {
+      setData(data.filter(item => item.id !== id));
+      navigate('/');
+    })
+    .catch(err => console.log(err));
+  }
 
   return (
     <div className="bg-dark vh-100 d-flex align-items-center justify-content-center">
@@ -51,7 +63,9 @@ function Home() {
                   <Link to={`/UpdateForm/${item.id}`} className="btn btn-primary btn-sm mr-2">
                     Update
                   </Link>
-                  <Button variant="danger" className="btn-sm">
+                  <Button variant="danger" className="btn-sm"
+                    onClick={e => handleDeleteFunctionality(item.id)}
+                  >
                     Delete
                   </Button>
                 </td>
